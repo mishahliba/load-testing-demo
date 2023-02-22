@@ -1,0 +1,19 @@
+management:
+  endpoints.web.exposure.include: metrics
+  metrics.export.statsd:
+    enabled: true
+    flavor: telegraf
+    port: ${TELEGRAF_PORT:8125}
+spring:
+  data:
+    mongodb:
+      uri: mongodb://{MONGO_INITDB_ROOT_USERNAME:admin}:${MONGO_INITDB_ROOT_PASSWORD:admin}@${MONGO_HOST:localhost}:${MONGO_PORT:27017}
+      database: ${MONGO_DB:mydatabase}
+  jackson:
+    serialization:
+      WRITE_DATES_AS_TIMESTAMPS: false
+  elasticsearch:
+    cluster-nodes[0]: https://elastic:elastic@http://${ELASTIC_HOST:localhost}:${ELASTIC_PORT:9200}
+    rest:
+      uris: http://${ELASTIC_HOST:localhost}:${ELASTIC_PORT:9200}
+    cluster-nodes: http://${ELASTIC_HOST:localhost}:${ELASTIC_PORT:9200}
